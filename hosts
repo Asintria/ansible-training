@@ -1,0 +1,7 @@
+### Ansible Hosts ###
+[ans_nodes]
+node1.ans.linuxclub.sh
+node2.ans.linuxclub.sh
+
+[test_node]
+test-node.ans.linuxclub.sh  ansible_user=test-node
