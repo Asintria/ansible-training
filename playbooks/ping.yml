@@ -1,0 +1,10 @@
+---
+- name: Ansible ping module
+  hosts: test_node
+  tasks:
+    - name: Ping check
+      ansible.builtin.ping:
+
+    - name: Print message
+      ansible.builtin.debug:
+        msg: Test complete
