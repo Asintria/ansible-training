@@ -4,4 +4,4 @@ node1.ans.linuxclub.sh
 node2.ans.linuxclub.sh
 
 [test_node]
-test-node.ans.linuxclub.sh ansible_user=test-node ansible_password=$ ansible_port=60252
+test-node.ans.linuxclub.sh ansible_user=test-node ansible_port=60252
