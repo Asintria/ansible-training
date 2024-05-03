@@ -1,8 +1,0 @@
----
-ansible_become_pass: "{{ test_node_sudo_pass }}"
-<<<<<<< HEAD
-ansible_ssh_pass: "{{ test_node_user_pass }}"
-# ansible_ssh_private_key_file:  "{{ test_node_ssh_public }}"
-=======
-# ansible_ssh_private_key_file:  "{{ test_node_ssh_public }}"
->>>>>>> 253d825 (Vault vars update)
