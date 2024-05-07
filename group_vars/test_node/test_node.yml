@@ -1,3 +1,1 @@
 ---
-ansible_become_pass: "{{ test_node_sudo_pass }}"
-ansible_ssh_pass: "{{ test_node_user_pass }}"
