@@ -2,6 +2,7 @@
 - name: APT
   hosts: "{{ custom_host }}"
   become: yes
+  
   tasks:
   - name: Update and upgrade apt packages
     apt:

@@ -1,0 +1,34 @@
+---
+- name: Configure SSHD
+  hosts: "{{ custom_host }}"
+  become: yes
+
+  tasks:
+  - name: Enable SSHD service (enabled by default, but why not I guess)
+    ansible.builtin.service:
+      name: sshd
+      enabled: yes
+
+  - name: Remove default SSHD config file
+    ansible.builtin.file:
+      state: absent
+      path: /etc/ssh/sshd_config
+
+  - name: Copy new SSHD config
+    ansible.builtin.template:
+      src: !vault |
+                  $ANSIBLE_VAULT;1.2;AES256;al
+                  35383633306239636335386165346662343664393362393132653238356539353736666532663534
+                  3538346238643764313336376134623039313031666631350a356638366538656364303963303232
+                  35663463313038653932666566616538663866323934343734663139633637663466303638666165
+                  3038383339376363360a663934373433313734356331663363353238386261636562653664663533
+                  36333662303863643437626661343064656564656532636632616132633837653362316239613232
+                  66326632363439613061643061633236666162666431613035383134333336343930643534313235
+                  61306230333331653338333434323030643363353962373439653965303332383765313864656565
+                  31383131633333646462
+      dest: /etc/ssh/sshd_config
+
+  - name: Restart SSHD Service
+    ansible.builtin.service:
+      name: sshd
+      state: restarted
