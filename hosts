@@ -1,7 +1,15 @@
 ### Ansible Hosts ###
+[prod]
+ws1
+
 [ans_nodes]
-node1.ans.linuxclub.sh
-node2.ans.linuxclub.sh
+n1a
+n2a
+v1o
+v2o
+v3o
+v4o
+v5o
 
 [test_node]
-test-node.ans.linuxclub.sh
+tna

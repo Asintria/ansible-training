@@ -1,0 +1,18 @@
+---
+- name: ufw configuration
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Enable ufw service (ufw/systemd)
+      ansible.builtin.shell:
+        cmd: yes | ufw enable
+    - name: ufw SSH port enabled
+      ansible.builtin.shell:
+        cmd: ufw allow 60252/tcp
+    - name: ufw reload
+      ansible.builtin.shell:
+        cmd: yes | ufw reload
+    - name: Check status
+      ansible.builtin.shell:
+        cmd: ufw status

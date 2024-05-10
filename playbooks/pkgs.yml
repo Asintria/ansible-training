@@ -1,0 +1,18 @@
+---
+- name: Install base packages
+  hosts: all
+  become: yes
+  tasks:
+    - name: Update repo cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 43200
+      diff: true
+
+    - name: Install packages
+      ansible.builtin.apt:
+        pkg:
+          - ufw
+          - vnstat
+          - htop
+          - sudo 

@@ -1,6 +1,7 @@
 ---
 - name: Ansible ping module
-  hosts: test_node
+
+  hosts: all
   vars_files: /gitdata/git/ansible-training/group_vars/all/.vault.yml 
   tasks:
     - name: Ping check
