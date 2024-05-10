@@ -1,6 +1,6 @@
 ---
 - name: ufw configuration
-  hosts: all
+  hosts: "{{ custom_host }}"
   become: true
 
   tasks:

@@ -1,8 +1,8 @@
 ---
 - name: Ansible ping module
-
-  hosts: all
+  hosts: "{{ custom_host }}"
   vars_files: /gitdata/git/ansible-training/group_vars/all/.vault.yml 
+  
   tasks:
     - name: Ping check
       ansible.builtin.ping:

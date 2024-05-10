@@ -1,6 +1,6 @@
 ---
 - name: Install base packages
-  hosts: all
+  hosts: "{{ custom_host }}"
   become: yes
   tasks:
     - name: Update repo cache
