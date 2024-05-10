@@ -1,0 +1,15 @@
+---
+- name: Reboot
+  hosts: all
+  become: yes
+  tasks:
+    - name: Reboot hosts
+      ansible.builtin.reboot:
+    
+    - name: Sleep
+      ansible.builtin.pause:
+        minutes: 1
+
+    - name: Ping check
+      ansible.builtin.ping:
+

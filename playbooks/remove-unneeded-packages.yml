@@ -1,0 +1,8 @@
+---
+- name: Remove useless packages
+  hosts: all
+  become: yes
+  tasks:
+  - name: Clean packages
+    ansible.builtin.apt:
+      autoclean: yes

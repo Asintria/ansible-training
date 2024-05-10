@@ -1,3 +1,4 @@
 .gitignore
 .vaultpass
 .vscode
+ansible.log

@@ -1,0 +1,11 @@
+---
+- name: Create backup user
+  hosts: all
+  become: true
+  ansible.builtin.user:
+    name: "{{ backup_user_name }}"
+    shell: /bin/bash
+    groups: sudo
+    password: "{{ backup_user_password }}"
+      # Set password
+      #
