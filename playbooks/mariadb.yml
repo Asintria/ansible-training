@@ -23,15 +23,15 @@
 - name: Initialise MariaDB
   hosts: "{{ custom_host }}"
   become: yes
-  become_user: root
-  become_password: !vault |
+  vars:
+    become_user: root
+    ansible_become_pass: !vault |
                       $ANSIBLE_VAULT;1.2;AES256;al
                       62656561336264313439343361656138316238363337383832643531656430623039643064643130
                       3637373434313433366334386566343034633035323563340a353631393530363031376136356436
                       32303330643838613061396230306137663264313932616535643033353935323061316133316361
                       3066663733353066370a643037666137303365303966336366663832353061326563643030373761
                       6338
-  vars:
     mysql_root_password: !vault |
             $ANSIBLE_VAULT;1.2;AES256;al
             39363364623937666230643137356131663962326464656136306535616632303838343562393763
@@ -89,7 +89,7 @@
     ansible.builtin.shell: mysql -u root -e "CREATE DATABASE {{ db_name }};"
 
   - name: Create database user
-    ansible.builtin.shell: mysql -u root -e "GRANT ALL PRIVILEGES ON {{ db_name }}.* TO '{{ db_user }}'@'localhost' IDENTIFIED BY '{{ db_password }};"
+    ansible.builtin.shell: mysql -u root -e "GRANT ALL PRIVILEGES ON {{ db_name }}.* TO '{{ db_user }}'@'localhost' IDENTIFIED BY '{{ db_password }};'"
 
   - name: Flush privileges
     ansible.builtin.shell: mysql -u root -e "FLUSH PRIVILEGES ;"    
