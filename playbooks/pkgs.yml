@@ -15,4 +15,5 @@
           - ufw
           - vnstat
           - htop
-          - sudo 
+          - sudo
+          - wget 

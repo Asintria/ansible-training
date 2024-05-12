@@ -1,0 +1,21 @@
+---
+- name: Install Nginx
+  hosts: "{{ custom_host }}"
+  become: yes
+
+  tasks:
+  - name: Install Nginx packages
+    ansible.builtin.apt:
+      name: nginx
+      state: present 
+
+  - name: Start Nginx service
+    ansible.builtin.servce:
+      name: nginx
+      state: started
+
+  - name: Enable Nginx service
+    ansible.builtin.service:
+      name: nginx
+      enabled: yes
+

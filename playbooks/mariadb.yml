@@ -1,0 +1,61 @@
+---
+- name: Install and configure MariaDB
+  hosts: "{{ custom_host }}"
+  become: yes
+
+  tasks:
+  - name: Install MariaDB Server and Client
+    ansible.builtin.apt:
+      name:
+        - mariadb-server
+        - mariadb-client
+
+  - name: Start MariaDB service
+    ansible.builtin.service:
+      name: mariadb
+      state: restarted
+
+  - name: Enable MariaDB service
+    ansible.builtin.service:
+      name: mariadb
+      enabled: yes
+
+        ###############  CURRENTLY BROKEN ###############
+        #
+        # EITHER NEED TO EXPECT MYSQL_SECURE_INSTALLATION COMMAND
+        # OR MAKE CHANGES WITHOUT NEEDING MSI SCRIPT
+        #
+#- name: Initialise MariaDB
+#  hosts: "{{ custom_host }}"
+#  vars:
+#    become: yes
+#    become_user: root
+#    become_password: !vault |
+#                      $ANSIBLE_VAULT;1.2;AES256;al
+#                      62656561336264313439343361656138316238363337383832643531656430623039643064643130
+#                      3637373434313433366334386566343034633035323563340a353631393530363031376136356436
+#                      32303330643838613061396230306137663264313932616535643033353935323061316133316361
+#                      3066663733353066370a643037666137303365303966336366663832353061326563643030373761
+#                      6338
+#  tasks:    
+#  - name: Initialize
+#    ansible.builtin.expect:  
+#      command: mysql_secure_installation
+#      responses:
+#        "Enter current password for root (enter for none)": ''
+#        "Switch to unix_socket authentication [Y/n]": "y"
+#        "Change the root password? [Y/n]": "n"
+#        "Remove anonymous users? [Y/n]": "y"
+#        "Disallow root login remotely? [Y/n]": "y"
+#        "Remove test database and access to it? [Y/n]": "y"
+#       "Reload privilege tables now? [Y/n]": "y"
+
+- name: As mysql user create database, user and pass
+  hosts: "{{ custom_host }}"
+  become: true
+
+  tasks:
+  - name: Login to MySQL shell
+    ansible.builtin.shell: mysql -u root
+    
+

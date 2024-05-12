@@ -1,0 +1,51 @@
+---
+# Specific to Wordpress
+#
+# Improvements:
+# - Dynamic PHP versioning, instead of locked to 8.2
+#
+######################################################
+
+- name: Install and configure PHP for Wordpress
+  hosts: "{{ custom_host }}"
+  become: yes
+
+  tasks:
+  - name: Install PHP and PHP Extensions
+    ansible.builtin.apt:
+      pkg:
+        - php
+        - php-curl
+        - php-fpm
+        - php-bcmath
+        - php-gd
+        - php-soap
+        - php-zip
+        - php-curl
+        - php-mbstring
+        - php-mysqlnd
+        - php-xml
+        - php-intl
+
+  - name: Remove old  php.ini file
+    ansible.builtin.file:
+      state: absent
+      path: /etc/php/8.2/fpm/php.ini
+
+  - name: Copy configured PHP-FPM .ini file
+    ansible.builtin.template:
+      src: !vault |
+                  $ANSIBLE_VAULT;1.2;AES256;al
+                  66363862383864376266643833373937623339373033613233333832623439653365326235346334
+                  3565633966353861306339646636613731373834633237300a626132623237356331666130623937
+                  35653764353333656637376133363261653163663131663730313561373731313833383234646162
+                  6132373764323537300a633664393631366238353237336635303166303464316465633664633435
+                  63623934326238303063643632663539343030346133646566333834396266666138376364613132
+                  30323864666230633233653262376437653264353936643139336331353863393532666337356130
+                  636466363063373933326134653530353166
+      dest: /etc/php/8.2/fpm/php.ini
+
+  - name: Restart PHP-FPM service
+    ansible.builtin.service:
+      name: php8.2-fpm
+-
