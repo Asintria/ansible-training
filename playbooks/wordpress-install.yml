@@ -1,0 +1,17 @@
+---
+
+# To-do - Move away from actually having roles/tasks within Playbooks, and just call the roles from a Playbook :)
+
+- name: Install Nginx
+  ansible.builtin.import_playbook: nginx-install.yml
+
+- name: Install PHP and Extensions
+  ansible.builtin.import_playbook: php-wordpress.yml
+
+
+    nginx-install.yml
+    php-wordpress.yml
+    mariadb-wordpress.yml
+    wordpress-deploy.yml
+
+

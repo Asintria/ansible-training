@@ -1,0 +1,34 @@
+---
+- name: Configure HTTP config for Wordpress
+  hosts: "{{ custom_host }}"
+  become: true
+
+  tasks:
+    - name: Delete default Nginx virtualhosts file
+      ansible.builtin.file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent
+    - name: Delete default Nginx virtualhosts file (2)
+      ansible.builtin.file:
+        path: /etc/nginx/sites-available/default
+        state: absent
+
+    - name: Copy configured Nginx virtualhosts file
+      ansible.builtin.template:
+        src: !vault |
+                    $ANSIBLE_VAULT;1.2;AES256;al
+                    39636635626565623433363235636433333739373234643163306339336230343133346563303761
+                    3764356237326664393964373961646163326230643936610a623966323039653562306638353365
+                    36323936353833613136303431623066356236396261303930356533363437626532326334376263
+                    6662316233366533330a363463633330346239636133616465356261326234646563393731666366
+                    62376336316261393063656465616461653863316465653461616239653966313065636133613965
+                    36626264316163363737643462373832616633326164383530326533336638636331313361633433
+                    32353461313638303464336234363361613639383239663466373430353433353639353234303461
+                    61376263613837363033
+        dest: /var/www/html/wordpress/wp-config.php
+
+    - name: Restart Nginx service
+      ansible.builtin.service:
+        name: nginx
+        state: restarted
+

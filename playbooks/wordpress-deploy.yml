@@ -1,0 +1,45 @@
+---
+
+# To-do - move away from single password entries (per playbook/role), to central vault. Currently broken.
+# To-do - get hostname/URL and extract to /var/www/html/$hostname, isntead of /var/www/html/wordpress (multiple installations)
+#
+- name: Chdir to /tmp and download Wordpress installed
+  hosts: "{{ custom_host }}"
+  become: true
+
+  tasks:
+    - name: Instal unzip package
+      ansible.builtin.apt:
+        name: unzip
+        state: present
+
+    - name: Download Wordpress installer
+      ansible.builtin.get_url:
+        url: https://wordpress.org/latest.zip
+        dest: /tmp/wordpress-latest.zip
+
+    - name: Unzip Wordpress installer
+      ansible.builtin.unarchive:
+        src: /tmp/wordpress-latest.zip
+        dest: /var/www/html
+        remote_src: yes
+
+    - name: Copy wp-config.php template to remote machine
+      ansible.builtin.template:
+        src: !vault |
+                    $ANSIBLE_VAULT;1.2;AES256;al
+                    64363162643433373932646136373935366433353135396165386533363432366666666364363165
+                    3732333865393031663232376564363261363136643737360a656535313230386164626639353166
+                    32373933326466383066373737343539616265653662393637333861653536613537643066656134
+                    3362366361386235640a623339623734333139316330653634373766333237396461326336653633
+                    36633865333562383630393964656464306634633630383130353563616436343631613562343838
+                    62323461346332393462393330373638653261383162633737393232386431373363643362316338
+                    39653964643639666536366461646438323036613262653731356133366439666337353932646339
+                    65313966303566616531
+        dest: /var/www/html/wordpress/wp-config.php
+
+          #### FIX BELOW ####
+
+    - name: Execute Nginx-wordpress configuration role
+      ansible.builtin.include_role: ./playbooks/nginx-wordpress-config.yml
+
