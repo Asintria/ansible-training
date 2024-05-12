@@ -1,7 +1,5 @@
 ## ansible-training
 
-WIP
-
 Plan for ansible-training development:
 ```
 - new host role
