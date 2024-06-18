@@ -18,6 +18,7 @@ Plan for ansible-training development:
 ... more to be added.
 
 
+
 Roles:
 - users
     - create standard user in sudoers group
